@@ -1,6 +1,6 @@
 package motor_PHSystem;
 
-public class employeeSelfServiceLayer {
+public class EmployeeSelfServiceLayer {
 
 	public static void displayPayslipRecords() {
 		// TODO Auto-generated method stub

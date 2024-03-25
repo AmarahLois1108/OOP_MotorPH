@@ -47,10 +47,10 @@ public class Calculations {
     }
 
     public static double calculateWeeklyGrossSalary(String employeeId, int weekNumber) {
-        double riceSubsidy = GetData.getRiceSubsidy(employeeId);
-        double phoneAllowance = GetData.getPhoneAllowance(employeeId);
-        double clothingAllowance = GetData.getClothingAllowance(employeeId);
-        double hourlyRate = GetData.getHourlyRate(employeeId);
+        double riceSubsidy = Employee.getRiceSubsidy(employeeId);
+        double phoneAllowance = Employee.getPhoneAllowance(employeeId);
+        double clothingAllowance = Employee.getClothingAllowance(employeeId);
+        double hourlyRate = Employee.getHourlyRate(employeeId);
 
         try (BufferedReader reader = new BufferedReader(new FileReader("Employee_salary.txt"))) {
             String line;
@@ -78,9 +78,9 @@ public class Calculations {
     }
 
     public static double calculateWeeklyDeduction(String employeeId, int weekNumber, double weeklyGrossSalary) {
-        double philhealth = GetData.getPhilhealthDeduction(employeeId);
-        double sss = GetData.getSssDeduction(employeeId);
-        double pagibig = GetData.getPagibigDeduction(employeeId);
+        double philhealth = Employee.getPhilhealthDeduction(employeeId);
+        double sss = Employee.getSssDeduction(employeeId);
+        double pagibig = Employee.getPagibigDeduction(employeeId);
         double tax = calculateWithholdingTax(weeklyGrossSalary);
         double totalDeduction = philhealth + sss + pagibig;
         double weeklyDeduction = (totalDeduction / 4.0) + tax;
