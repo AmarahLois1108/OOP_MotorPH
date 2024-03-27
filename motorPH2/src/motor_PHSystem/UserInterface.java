@@ -2,11 +2,14 @@ package motor_PHSystem;
 
 import java.util.Scanner;
 
+
 public class UserInterface {
     private LoginManager loginManager;
+    private EmployeeSelfServiceLayer employeeSelfServiceLayer; // Add this
 
-    public UserInterface(LoginManager loginManager) {
+    public UserInterface(LoginManager loginManager, EmployeeSelfServiceLayer employeeSelfServiceLayer) {
         this.loginManager = loginManager;
+        this.employeeSelfServiceLayer = employeeSelfServiceLayer; // Initialize employeeSelfServiceLayer
     }
 
     public void start() {
@@ -24,29 +27,9 @@ public class UserInterface {
                 boolean loginSuccessful = loginManager.login(username, password);
                 
                 if (loginSuccessful) {
-                    // If login is successful, display the appropriate menu based on user role
                     String userRole = loginManager.getLoggedInUserRole();
-                    if (userRole.equalsIgnoreCase("Employee")) { // Use equalsIgnoreCase() for case-insensitive comparison
-                        System.out.println("Redirecting to Employee Self Service Hub...");
-                        Menu employeeSelfServiceMenu = new EmployeeSelfServiceMenu();
-                        employeeSelfServiceMenu.display();
-                        employeeSelfServiceMenu.handleChoice(scanner);
-                    } else {
-                        System.out.println("Do you want to log in as an authorized user? (Y/N)");
-                        String choice = scanner.nextLine().trim().toUpperCase();
-                        if (choice.equals("Y")) {
-                            Menu authorizedUserMenu = new AuthorizedUserMenu();
-                            authorizedUserMenu.display();
-                            authorizedUserMenu.handleChoice(scanner);
-                        } else {
-                            System.out.println("Redirecting to Employee Self Service Hub...");
-                            Menu employeeSelfServiceMenu = new EmployeeSelfServiceMenu();
-                            employeeSelfServiceMenu.display();
-                            employeeSelfServiceMenu.handleChoice(scanner);
-                        }
-                    }
-                    // Break out of the loop after handling menu choice
-                    break;
+                    displayMenu(scanner, userRole);
+                    break; // Exit the loop after handling menu choice
                 } else {
                     System.out.println("Login failed. Please try again.");
                 }
@@ -55,6 +38,27 @@ public class UserInterface {
             scanner.close();
         }
     }
- 
+
+    private void displayMenu(Scanner scanner, String userRole) {
+        Menu menu;
+        switch (userRole.toLowerCase()) {
+            case "employee":
+                System.out.println("Redirecting to Employee Self Service Hub...");
+                menu = new EmployeeSelfServiceMenu(employeeSelfServiceLayer); // Pass employeeSelfServiceLayer
+                break;
+            default:
+                System.out.println("Do you want to log in as an authorized user? (Y/N)");
+                String choice = scanner.nextLine().trim().toUpperCase();
+                if (choice.equals("Y")) {
+                    System.out.println("Redirecting to Authorized User Menu...");
+                    menu = new AuthorizedUserMenu();
+                } else {
+                    System.out.println("Redirecting to Employee Self Service Hub...");
+                    menu = new EmployeeSelfServiceMenu(employeeSelfServiceLayer); // Pass employeeSelfServiceLayer
+                }
+                break;
+        }
+        menu.display();
+        menu.handleChoice(scanner);
+    }
 }
-   

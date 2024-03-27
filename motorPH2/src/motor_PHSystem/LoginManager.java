@@ -46,7 +46,16 @@ public class LoginManager {
         if (loggedInUser != null) {
             return loggedInUser.getRoleType();
         } else {
-            return "No user logged in"; // You can handle this case as per your requirement
+            return "No user logged in";
+        }
+    }
+
+    // Method to get the ID of the logged-in user
+    public String getLoggedInUser() {
+        if (loggedInUser != null) {
+            return loggedInUser.getEmployeeID();
+        } else {
+            return null; // No user logged in
         }
     }
 }

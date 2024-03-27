@@ -2,7 +2,7 @@ package motor_PHSystem;
 
 import java.util.Scanner;
 
-class AuthorizedUserMenu implements Menu {
+/*class AuthorizedUserMenu implements Menu {
 	
 	private static UserManagementLayer userManagementLayer = new UserManagementLayer();
 	private static EmployeeManagementLayer employeeManagementLayer = new EmployeeManagementLayer();
@@ -177,4 +177,4 @@ class AuthorizedUserMenu implements Menu {
         System.out.println("Disputes Menu");
         // Display options for disputes
     }
-}
+}*/

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class LeaveStatusManager {
+public class LeaveManagement {
     private static final String STATUS_FILE_PATH = "Leave_Status.csv";
 
     public static String getLeaveStatus(String employeeId, String leaveType) {
